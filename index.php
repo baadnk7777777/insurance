@@ -69,7 +69,7 @@
     </header>
 
     <main class="main">
-    <?php echo($_SESSION['price']); echo($_SESSION['inputTypeproduct']); ?>
+     <?php $_SESSION['price']; $_SESSION['inputTypeproduct'] ?> 
         <!-- HOME -->
         <section class="home" id="home">
             
@@ -499,6 +499,7 @@
                     },
                 });
             });
+            
         });
     </script>
 

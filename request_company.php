@@ -70,14 +70,14 @@
 
         <table class="table table-striped">
   <thead>
-      <h4 class="row justify-content-center">กรมธรรม์ทั้งหมด</h4>
+      <h4 class="row justify-content-center">กรมธรรม์ที่แนะนำ</h4>
   </thead>
   <tbody>
     <?php
         include("config.php");
         $pro_id = $_SESSION["inputTypeproduct"];
         $price = $_SESSION["price"];
-        $sql = "select c.company_name,c.company_link, d.cost ,d.insurance_amount_f
+        $sql = "select c.company_name,c.company_link,c.company_id, d.cost ,d.insurance_amount_f 
         FROM company c ,insurance_detail d
         WHERE EXISTS(SELECT d.company_id 
         WHERE (d.prod_id=".$pro_id." and (".$price." >=d.insurance_amount_i and ".$price." <=d.insurance_amount_f)  AND c.company_id = d.company_id) 
@@ -87,8 +87,14 @@
         $num_rows = mysqli_num_rows($result);
         if ($num_rows > 0) {
             $row_count =1;
+            $arr_detail = array(array());
             while ($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
-                echo "<tr><th scope='row'>" . $row_count . "</th><td>" . $row[0] . "</td><td class='float-right'><form><button type='button' class='btn btn-dark mr-3' data-toggle='modal' data-target='#detail_modal'> รายละเอียด</button> <input type='submit' class='btn btn-success btn-md ' value='เลือก' formaction='".$row[1]."'></form> </td></tr>";
+                echo "<tr><th scope='row'>" . $row_count . "</th><td>" . $row[0] . "</td><td class='float-right'><form><button type='button' class='btn btn-dark mr-3' data-toggle='modal' data-target='#detail_modal".$row[2]."'> รายละเอียด</button> <input type='submit' class='btn btn-success btn-md ' value='เลือก' formaction='".$row[1]."'></form> </td></tr>";
+                $arr_detail[$row_count - 1][0] = $row[2];
+                // echo "row[2]= ".$row[2]."";
+                $arr_detail[$row_count - 1][1] = $row[4];
+                $arr_detail[$row_count - 1][2] = $row[3];
+                $arr_detail[$row_count - 1][3] = $row[0];
                 $row_count = $row_count+1;
             }
         } else {
@@ -101,29 +107,57 @@
         </section>
 
         <!-- Modal -->
-        <div class="modal fade" tabindex="-1" id="detail_modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form method="POST" id="frm_product">
-                    <div class="modal-header">
-                        <h5 class="modal-title">รายละเอียดกรมธรรม์</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+        
+        <?php
+        
+        for($i = 0; $i<$num_rows ; $i++){
+            echo '
+            <div class="modal fade" tabindex="-1" id="detail_modal'.strval($arr_detail[$i][0]).'">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form method="POST" id="frm_product'.strval($i).'">
+                            <div class="modal-header">
+                                <h5 class="modal-title">รายละเอียดกรมธรรม์</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container">
+                                    <!-- Fetch ข้อมูลตาม บริษัท -->
+                                    <div class ="row">
+                                    <h4> บริษัท : '.$arr_detail[$i][3].'</h4>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped border">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th>ราคาสินค้าโดยประมาณ</th>
+                                                    <th>จำนวนเงินจำกัดความรับผิด(บาท)</th>
+                                                    <th>จำวนเงินที่ต้องชำระ</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>'.$price.'</td>
+                                                    <td>'.$arr_detail[$i][1].'</td>
+                                                    <td>'.$arr_detail[$i][2].'</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                    
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="modal-body">
-                        <div class="container">
-                            <!-- Fetch ข้อมูลตาม บริษัท -->
-                        <H3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis saepe dolores iure amet corporis reprehenderit aspernatur magnam totam autem! Debitis laboriosam nisi corporis animi? Perferendis dignissimos voluptate sapiente dolorum praesentium.</H3>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </div>
-
+            '; 
+            } ?>
     </main>
 
     <!--==================== FOOTER ====================-->

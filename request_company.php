@@ -33,19 +33,19 @@
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="" class="nav__link">เกี่ยวกับเรา</a>
+                        <a href="index.php" class="nav__link">เกี่ยวกับเรา</a>
                     </li>
 
                     <li class="nav__item">
-                        <a href="inventory" class="nav__link">ผลิตภัณฑ์</a>
+                        <a href="product.php" class="nav__link">ผลิตภัณฑ์</a>
                     </li>
 
                     <li class="nav__item">
-                        <a href="store" class="nav__link">ข่าวสารและกิจกรรม</a>
+                        <a href="news.php" class="nav__link">ข่าวสารและกิจกรรม</a>
                     </li>
 
                     <li class="nav__item">
-                        <a href="new" class="nav__link">ติดต่อ</a>
+                        <a href="contact.php" class="nav__link">ติดต่อ</a>
                     </li>
 
                 </ul>

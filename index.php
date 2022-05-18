@@ -69,7 +69,7 @@
     </header>
 
     <main class="main">
-     <?php $_SESSION['price']; $_SESSION['inputTypeproduct'] ?> 
+     
         <!-- HOME -->
         <section class="home" id="home">
             

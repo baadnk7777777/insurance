@@ -428,7 +428,7 @@
                 </a>
 
                 <p class="footer__discription">
-                    Thanks For looking this wevsite.
+                    Thanks For looking this website.
                 </p>
             </div>
 

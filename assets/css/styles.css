@@ -123,6 +123,8 @@ button{
   margin-right: var(--mb-1-5);
 }
 
+
+
 .grid{
   display: grid;
 }
@@ -321,6 +323,8 @@ button{
   border-radius: 20px;
 }
 
+
+
 .new__card{
   position: relative;
   width: 230px;
@@ -348,6 +352,7 @@ button{
 .footer__container{
   position: relative;
   row-gap: 2rem;
+  
 }
 
 .footer__logo{
@@ -385,6 +390,7 @@ button{
   color: var(--text-color);
   transition: .3s;
 }
+
 
 .footer__link:hover{
   color: var(--title-color);
